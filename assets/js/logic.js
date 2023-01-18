@@ -41,32 +41,7 @@ function checkAnswer () {
 function showQuestions () {
     startScreen.className ="hide";
     questions.className ="show";
-    // Just visualising data below
-    // console.log(questionsArr[questionIndex]['quiz']); 
-    // Will use this number to check HTML value for the right answer.
-    let answerNumber = 1;
-    questionTitle.textContent = questionsArr[questionIndex]['quiz'];
-    for (item of questionsArr[questionIndex]['answers']){
-        
-        btnAnswers = document.createElement('button');
-        li = document.createElement('li');
-        liOptions = document.getElementsByTagName('li');
-        liOptions.addEventListener('click',function(event) {
-            event.preventDefault;
-            if (liOptions.getAttribute('value') == questionsArr[i].correct){
-                // giving one point for eac h correct answer. Using == instead of 3 because correct answer is a string. Could parseIn
-                score++;
-            }
-            else sec -= 15;
-        } )
- 
-        choicesList.appendChild(li);
-        li.appendChild(btnAnswers);     
-        btnAnswers.textContent = item;
-        li.setAttribute("value",answerNumber);
-        answerNumber++;
-    }
-    
+
 }
 const countDown = function () {
     

@@ -35,15 +35,7 @@ function finish () {
 }
 
 function checkAnswer () {
-        liOptions = document.getElementsByTagName('li');
-        liOptions.addEventListener('click',function(event) {
-            event.preventDefault;
-            if (liOptions.getAttribute('value') == questionsArr[i].correct){
-                // giving one point for eac h correct answer. Using == instead of 3 because correct answer is a string. Could parseIn
-                score++;
-            }
-            else sec -= 15;
-        } ) 
+
 }
 
 function showQuestions () {
@@ -58,6 +50,16 @@ function showQuestions () {
         
         btnAnswers = document.createElement('button');
         li = document.createElement('li');
+        liOptions = document.getElementsByTagName('li');
+        liOptions.addEventListener('click',function(event) {
+            event.preventDefault;
+            if (liOptions.getAttribute('value') == questionsArr[i].correct){
+                // giving one point for eac h correct answer. Using == instead of 3 because correct answer is a string. Could parseIn
+                score++;
+            }
+            else sec -= 15;
+        } )
+ 
         choicesList.appendChild(li);
         li.appendChild(btnAnswers);     
         btnAnswers.textContent = item;
@@ -80,5 +82,5 @@ const countDown = function () {
 start.addEventListener("click", function (){
     countDown();
     showQuestions();
-    checkAnswer();
+
 })

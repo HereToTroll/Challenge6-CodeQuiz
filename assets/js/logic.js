@@ -41,8 +41,14 @@ function checkAnswer () {
 function showQuestions () {
     startScreen.className ="hide";
     questions.className ="show";
+    // Just visualising data below
+    // console.log(questionsArr[questionIndex]['quiz']); 
+    // Will use this number to check HTML value for the right answer.
 
-}
+    }
+    
+    
+
 const countDown = function () {
     
     timer = setInterval(()=>{
@@ -56,6 +62,6 @@ const countDown = function () {
 }
 start.addEventListener("click", function (){
     countDown();
-    showQuestions();
+  
 
 })

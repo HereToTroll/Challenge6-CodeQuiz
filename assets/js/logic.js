@@ -1,67 +1,127 @@
-const start = document.querySelector("#start");
-const startScreen = document.querySelector("#start-screen");
-let choices = document.querySelector("#choices");
-let choicesList = document.querySelector("#choices-list");
+let score = 0;
+let questionId = 0;
+let remainingTime = 60;
+
+const finalScore = document.querySelector("#final-score");
+const questions = document.querySelector("#questions");
 const questionTitle = document.querySelector("#question-title");
+const choices = document.querySelector("#choices");
 const endScreen = document.querySelector("#end-screen");
-const submit = document.querySelector("#submit");
+const startScreen = document.querySelector("#start-screen");
 const feedback = document.querySelector("#feedback");
+const startButton = document.querySelector("#start");
+const sumbitButton = document.querySelector("#submit");
 const time = document.querySelector("#time");
-let timer;
-let btnAnswers;
-let li;
-let sec = 100;
-let liOptions;
+const initials = document.querySelector("#initials");
+let timeInterval;
 
 
-// * A start button that when clicked a timer starts and the first question appears.
+function startQuiz() {
+    startScreen.className = "hide";
+    questions.className = "";
+    timer();
+    showQuestion(questionId);
+};
+
+function timer() {
+    timeInterval = setInterval(function() {
+      if (remainingTime > 0) {
+        time.textContent = remainingTime;
+        remainingTime--;
+      } else {
+        stopQuiz();
+      };
+    }, 1000);
+};
+
+function checkAnswer(target) {
+    if (questionId < questionsArray.length-1) {
+     if (target.textContent == questionsArray[questionId].correct) {
+         score++;
+         questionId++;
+         showQuestion(questionId);
+     } else {
+         remainingTime -= 10;
+     }
+    } else if (questionId = questionsArray.length-1) {
+     if (target.textContent == questionsArray[questionId].correct) {
+         score++;
+         questionId++;
+         stopQuiz()
+     } else {
+         remainingTime -= 10;
+     }
+    }
  
-//   * Questions contain buttons for each answer.
-//   * 
-//   * When answer is clicked, the next question appears
-//   * 
-//   * If the answer clicked was incorrect then subtract time from the clock
+ };
 
-// * The quiz should end when all questions are answered or the timer reaches 0.
+function stopQuiz() {
 
-//   * When the game ends, it should display their score and give the user the ability to save their initials and their score
-function clear () {
-    choicesList.innerHTML = '';
-}
-function finish () {
-    endScreen.classname ="show";
-    questions.className ="hide";
+        questions.className = "hide";
+        endScreen.className = "";
+        finalScore.textContent = score;
+        clearInterval(timeInterval);
+};
 
-}
-
-function checkAnswer () {
-
-}
-
-function showQuestions () {
-    startScreen.className ="hide";
-    questions.className ="show";
-    // Just visualising data below
-    // console.log(questionsArr[questionIndex]['quiz']); 
-    // Will use this number to check HTML value for the right answer.
-
+function saveScores() {
+ 
+    let newScore = [{
+        player: initials.value,
+        score: score
+    }];
+    let savedScores = JSON.parse(localStorage.getItem("scores"));
+    if (savedScores != null) {
+        let joined = newScore.concat(savedScores);
+        localStorage.setItem("scores", JSON.stringify(joined));
+    } else {
+        localStorage.setItem("scores", JSON.stringify(newScore));
     }
-    
-    
 
-const countDown = function () {
-    
-    timer = setInterval(()=>{
-        time.innerHTML = sec;
-        --sec;
-    },1000) // 1 second
-    if (sec === 0) {
-        clear();
-        finish();
-    }
-}
-start.addEventListener("click", function (){
-    countDown();
-  
+};
 
-})
+
+
+
+
+function showQuestion(index) {
+    questionTitle.textContent = "";
+    choices.textContent = "";
+    questionTitle.textContent = questionsArray[index].question
+    var ol = document.createElement("ol");
+    choices.appendChild(ol);
+    for (i=0; i<3; i++) {
+        var option = document.createElement("li");
+        var choice = document.createElement("button");
+        choice.textContent = questionsArray[index].options[i];
+        option.appendChild(choice);
+        ol.appendChild(option);
+   }
+};
+
+function restart() {
+   score = 0
+   questionId = 0
+   remainingTime = 60
+   endScreen.className = "hide";
+   startScreen.className = "start";
+   time.textContent = "60";
+   questionTitle.textContent = "";
+   choices.textContent = "";
+};
+
+
+startButton.addEventListener("click", function(event) {
+    startQuiz();
+});
+
+sumbitButton.addEventListener("click", function(event) {
+    saveScores();
+    restart();
+});
+
+choices.addEventListener("click", function(event) {
+    target = event.target;
+   if (target.tagName == "BUTTON") {
+    checkAnswer(target);
+   }
+});

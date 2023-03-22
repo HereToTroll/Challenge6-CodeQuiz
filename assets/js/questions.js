@@ -1,30 +1,27 @@
-
-
-let questions = document.querySelector("#questions"); // Selecting div containiing question and answers.
-
-let score = 0;
-let questionIndex = 0;
-
-// Array with quiz questions.
-const questionsArr = [
+const questionsArray = [
     {
-        quiz : "What language is used to change styles on the page?",
-        answers : ["Java", "C", "CSS" , "HTML"],
-        correct : 3,
+        "question": "What means HTML?",
+        "options": ["HyperText Markup Language", "HardText Markup Language", "HyperText Masking Language"],
+        "correct": "HyperText Markup Language"
     },
     {
-        quiz : "What means CSS?",
-        answers : [
-            "Central Style Sheets", 
-            "Cascading Style Sheets",
-            "Cascading Simple Sheets" ,
-            "Cole Can Code"
-        ],
-        correct : 2,
+        "question": "What css is used for?",
+        "options": ["Interactivity", "Styling", "Markup"],
+        "correct": "Styling"
     },
     {
-        quiz : "How to iterate through array?",
-        answers : ["Using loop", "Using Conditional statement", "Can't iterate through array" , "Ask your coding friend"],
-        correct : 1,
+        "question": "Which Tag do we use to add CSS?",
+        "options": ["script", "head", "style"],
+        "correct": "style"
     },
-]
+    {
+        "question": "What is method in JS?",
+        "options": ["Function", "Class", "Object"],
+        "correct": "Function"
+    },
+    {
+        "question": "What loop would you use for Array iteration?'",
+        "options": ["While", "Do While", "For"],
+        "correct": "For"
+    }
+];

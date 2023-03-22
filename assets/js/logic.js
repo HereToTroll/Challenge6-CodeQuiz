@@ -24,11 +24,13 @@ function startQuiz() {
 };
 
 function timer() {
+    // starting timer 
     timeInterval = setInterval(function() {
       if (remainingTime > 0) {
         time.textContent = remainingTime;
         remainingTime--;
       } else {
+        // stop quiz if no time left
         stopQuiz();
       };
     }, 1000);
@@ -37,6 +39,7 @@ function timer() {
 function checkAnswer(target) {
     if (questionId < questionsArray.length-1) {
      if (target.textContent == questionsArray[questionId].correct) {
+        // if targeted option if correct add score
          score++;
          questionId++;
          showQuestion(questionId);
@@ -56,7 +59,7 @@ function checkAnswer(target) {
  };
 
 function stopQuiz() {
-
+        // hide question when quiz finished
         questions.className = "hide";
         endScreen.className = "";
         finalScore.textContent = score;
@@ -64,7 +67,7 @@ function stopQuiz() {
 };
 
 function saveScores() {
- 
+    // save score to local storage
     let newScore = [{
         player: initials.value,
         score: score
@@ -84,6 +87,7 @@ function saveScores() {
 
 
 function showQuestion(index) {
+    // clear text in tags before showing next question
     questionTitle.textContent = "";
     choices.textContent = "";
     questionTitle.textContent = questionsArray[index].question
@@ -99,9 +103,11 @@ function showQuestion(index) {
 };
 
 function restart() {
-   score = 0
-   questionId = 0
-   remainingTime = 60
+    // setting time, score and questionid to default values
+   score = 0;
+   questionId = 0;
+   remainingTime = 60;
+   // hiding end screen and removing text from the last question
    endScreen.className = "hide";
    startScreen.className = "start";
    time.textContent = "60";
@@ -109,7 +115,7 @@ function restart() {
    choices.textContent = "";
 };
 
-
+// Setting event listeners on every button
 startButton.addEventListener("click", function(event) {
     startQuiz();
 });

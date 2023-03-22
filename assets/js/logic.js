@@ -45,6 +45,7 @@ function checkAnswer(target) {
          showQuestion(questionId);
      } else {
          remainingTime -= 10;
+         score--;
      }
     } else if (questionId = questionsArray.length-1) {
      if (target.textContent == questionsArray[questionId].correct) {
@@ -53,6 +54,8 @@ function checkAnswer(target) {
          stopQuiz()
      } else {
          remainingTime -= 10;
+         score--;
+         
      }
     }
  
